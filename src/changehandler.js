@@ -43,26 +43,23 @@ class ChangeHandler {
 
   giveChange() {
     // TODO return the correct change in the following format...
+    let changeDue = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 };
     while (this.cashTendered > this.amountDue) {
-      let ChangeDue = this.cashTendered - this.amountDue;
-      let coins = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 };
-      if (this.changeDue > 25) {
-        this.changeDue -= 25;
+      if (this.cashTendered - this.amountDue >= 25) {
         this.cashTendered -= 25;
-      } else if (typeOfCoin === "dime") {
+        changeDue.quarters++;
+      } else if (this.cashTendered - this.amountDue >= 10) {
         this.cashTendered -= 10;
-      } else if (typeOfCoin === "nickel") {
+        changeDue.dimes++;
+      } else if (this.cashTendered - this.amountDue >= 5) {
         this.cashTendered -= 5;
-      } else if (typeOfCoin === "penny") {
+        changeDue.nickels++;
+      } else {
         this.cashTendered -= 1;
+        changeDue.pennies++;
       }
     }
-    return coins;
-
-    module.exports = { ChangeHandler };
+    return changeDue;
   }
-  //check if we can subtract 25
-
-  //if we can NOT subtract 25
-  //check if we can subtract 10
 }
+module.exports = { ChangeHandler };
